@@ -10,9 +10,11 @@ import logging
 def parse_hostname(output):
     '''Parse the hostname in the show run config and return string'''
     regexp = 'hostname\W+(\S+)'
-    result = re.search(regexp,output).group(1)
-    if not result:
-        return 'unknown device'
+    try:
+        result = re.search(regexp,output).group(1)
+    except AttributeError:
+        logging.warning('Unnable to parse the name of the device, please check the conf on unknown devcie')
+        return 'unkonwn_device'
     return result
 
 
