@@ -10,16 +10,9 @@ from web_scen import nic_web_change,masterhost_web_change
 from data_proc import read_csv_data,write_csv_data,dict_finder,pw_gen
 from mailer import msg_generator,send_mail
 import logging
+# IMPORT CONFIG VARIABLES
+from config import PASS_FILE,LOG_FILE,from_addr,to_addr,subject,msg_subject
 
-PASS_FILE = '/home/python/all_creds/web_site_changer/pass.csv'
-LOG_FILE = "/home/python/all_creds/web_site_changer/changer.log"
-
-
-#mail info
-from_addr = 'py-webbot@mhcb.ru'
-to_addr = 'sergey.afanasyev@mhcb.ru'
-subject = 'Monthly password change'
-msg_subject = 'Mothly password reset'
 
 
 #Settings for a logging system in the programm
@@ -63,6 +56,7 @@ def main():
     
     #Change the password on MASTERHOST
     new_pass = pw_gen()
+    logging.info(f"Generate new NIC passwords {new_pass}")
     #print(f"current pass : {masterhost_creds['password']}, new_pass: {new_pass} and login: {masterhost_creds['login']}")
     if not masterhost_web_change(masterhost_creds['password'],new_pass,masterhost_creds['login']):
         msg.append(f"Masterhost Password hasnt changed and stayed the same: {masterhost_creds['password']}")

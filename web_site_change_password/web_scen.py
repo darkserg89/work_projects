@@ -17,6 +17,7 @@ def nic_web_change(current_pass,new_pass,user):
     if 'Пароль изменен' in web.get_page_source(): 
         return True
     else:
+        #web.get_screenshot_as_file('/home/python/all_creds/web_site_changer/error_nic.png')
         return False
  
 
@@ -34,4 +35,5 @@ def masterhost_web_change(current_pass,new_pass,user):
     if 'Пароль успешно изменен.' in web.get_page_source(): 
         return True
     else:
+        #web.get_screenshot_as_file('/home/python/all_creds/web_site_changer/rror_masterhost.png')
         return False
