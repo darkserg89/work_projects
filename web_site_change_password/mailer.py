@@ -12,9 +12,10 @@ def msg_generator(msg_list):
 
 def send_mail(from_addr, to_addr, message_text, subject='No Subject',bcc = [],smtp_server_ip='203.59.72.37',smtp_port = '25', smtp_auth = False, smtp_login = None, smtp_pass = None, tls=False):
     '''The function is sending email notification '''
+    to_addr_lst = [email_addr.strip() for email_addr in to_addr.split(',')]
     msg = MIMEMultipart()
     msg['From']=from_addr
-    msg['To']=to_addr
+    msg['To']=','.join(to_addr_lst)
     msg['Subject'] = subject
     body =  message_text
     #Creating a msg based on PLAIN text
@@ -31,5 +32,5 @@ def send_mail(from_addr, to_addr, message_text, subject='No Subject',bcc = [],sm
         smtp_server.login(smtp_login,smtp_pass)
         if tls:
             smtp.starttls()
-    smtp_server.sendmail(from_addr,[to_addr] + bcc, text_msg)
+    smtp_server.sendmail(from_addr,to_addr_lst + bcc, text_msg)
     smtp_server.quit()
