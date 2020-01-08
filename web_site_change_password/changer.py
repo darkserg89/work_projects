@@ -1,6 +1,6 @@
 #!/home/python/venv/pyneng-py3/bin/python
 # -*- coding: utf-8 -*-
-''' Change password on websties and send a new password to email and store
+''' Change password on websties and send new passwords to list of mails, as well writes them
 into the file '''
 
 
@@ -26,7 +26,7 @@ logging.basicConfig(
 def main():
     logging.info('Start the programm')
     #Create an empty message list
-    msg = ['Mountly change password script finished the job']
+    msg = ['Nic and Masterhost monthly password change']
     
     
     # Read file with passwords
@@ -45,7 +45,7 @@ def main():
     #Change a password on NIC
     if not nic_web_change(nic_creds['password'],new_pass,nic_creds['login']):
         logging.warning('Unable to change pass on NIC!!!')
-        msg.append(f"NIC Password wasnt changed and staid the same: {nic_creds['password']}")
+        msg.append(f"NIC password was not changed and stayed the same: {nic_creds['password']}")
     else:
         #Save a new applied password in the dict
         nic_creds['password']=new_pass
@@ -56,10 +56,10 @@ def main():
     
     #Change the password on MASTERHOST
     new_pass = pw_gen()
-    logging.info(f"Generate new NIC passwords {new_pass}")
+    logging.info(f"Generate new Masterhost passwords {new_pass}")
     #print(f"current pass : {masterhost_creds['password']}, new_pass: {new_pass} and login: {masterhost_creds['login']}")
     if not masterhost_web_change(masterhost_creds['password'],new_pass,masterhost_creds['login']):
-        msg.append(f"Masterhost Password hasnt changed and stayed the same: {masterhost_creds['password']}")
+        msg.append(f"Masterhost Password has not changed and stayed the same: {masterhost_creds['password']}")
         logging.warning('Unable to change pass on Masterhost!!!')
     else:
         masterhost_creds['date'] = str(datetime.datetime.now()) 
